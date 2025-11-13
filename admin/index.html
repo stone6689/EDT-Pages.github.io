@@ -2305,6 +2305,26 @@
             color: #fff;
         }
 
+        /* Telegram 按钮状态样式 */
+        .btn-clear-config.btn-configured {
+            background: linear-gradient(135deg, #ef4444 0, #dc2626 100%);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .btn-clear-config.btn-not-configured {
+            background: linear-gradient(135deg, #d1d5db 0, #9ca3af 100%);
+            box-shadow: 0 4px 15px rgba(209, 213, 219, 0.3);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .btn-clear-config.btn-not-configured:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(209, 213, 219, 0.3);
+        }
+
         /* ==================== CF 使用统计模块样式 ==================== */
 
         .cf-usage-module {
@@ -4283,9 +4303,11 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                 cfUsageModule.style.display = 'block';
                 cfUsageModule.classList.remove('cf-usage-module');
                 updateCFUsageDisplay(cfUsage);
+                updateCloudflareButtonStates(true);
             } else {
                 cfUsageModule.style.display = 'none';
                 cfUsageModule.classList.add('cf-usage-module');
+                updateCloudflareButtonStates(false);
             }
 
             // 订阅链接
@@ -4358,10 +4380,16 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                 // 两个都有，启用checkbox，并加载 TG.启用 的状态
                 telegramCheckbox.disabled = false;
                 telegramCheckbox.checked = currentConfig.TG?.启用 ?? false;
+                // "参数配置"按钮颜色为绿色，表示已配置
+                updateTelegramButtonStates(true);
+                // "清除配置"按钮为红色，且可点击
             } else {
                 // 任意一个缺少，禁用checkbox
                 telegramCheckbox.disabled = true;
                 telegramCheckbox.checked = false;
+                // "参数配置"按钮颜色为默认色，表示未配置
+                updateTelegramButtonStates(false);
+                // "清除配置"按钮为灰色，且不可点击
             }
 
             modifiedSections.clear();
@@ -5708,6 +5736,93 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
 
         // ==================== 消息通知设置相关函数 ====================
 
+        // 更新 Telegram 按钮状态和颜色
+        function updateTelegramButtonStates(isConfigured) {
+            // 获取 Telegram 按钮元素（第一组通知按钮是 Telegram）
+            const buttons = document.querySelectorAll('.notification-controls');
+            
+            if (buttons.length > 0) {
+                const telegramControls = buttons[0];
+                const configBtn = telegramControls.querySelector('.btn-notification-config');
+                const clearBtn = telegramControls.querySelector('.btn-clear-config');
+                
+                if (isConfigured) {
+                    // 已配置：参数配置按钮为绿色，清除配置按钮为红色且可点击
+                    clearBtn.classList.remove('btn-not-configured');
+                    clearBtn.classList.add('btn-configured');
+                    clearBtn.disabled = false;
+                } else {
+                    // 未配置：参数配置按钮保持绿色，清除配置按钮为灰色且禁用
+                    clearBtn.classList.remove('btn-configured');
+                    clearBtn.classList.add('btn-not-configured');
+                    clearBtn.disabled = true;
+                }
+            }
+        }
+
+        // 清除 Telegram 配置
+        async function clearTelegramConfig() {
+            if (confirm('确定要清除 Telegram 配置吗？')) {
+                currentConfig.TG = {
+                    BotToken: null,
+                    ChatID: null,
+                    启用: false
+                };
+                
+                try {
+                    await saveConfigToServer('notification');
+                    showToast('Telegram 配置已清除', 'success');
+                    updateTelegramButtonStates(false);
+                    const telegramCheckbox = document.getElementById('telegramEnabled');
+                    telegramCheckbox.disabled = true;
+                    telegramCheckbox.checked = false;
+                } catch (error) {
+                    showToast('清除配置失败: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // 更新 Cloudflare 按钮状态和颜色
+        function updateCloudflareButtonStates(isConfigured) {
+            // 获取 Cloudflare 按钮元素（第二组通知按钮是 Cloudflare）
+            const buttons = document.querySelectorAll('.notification-controls');
+            
+            if (buttons.length > 1) {
+                const cloudflareControls = buttons[1];
+                const clearBtn = cloudflareControls.querySelector('.btn-clear-config');
+                
+                if (isConfigured) {
+                    // 已配置：清除配置按钮为红色且可点击
+                    clearBtn.classList.remove('btn-not-configured');
+                    clearBtn.classList.add('btn-configured');
+                    clearBtn.disabled = false;
+                } else {
+                    // 未配置：清除配置按钮为灰色且禁用
+                    clearBtn.classList.remove('btn-configured');
+                    clearBtn.classList.add('btn-not-configured');
+                    clearBtn.disabled = true;
+                }
+            }
+        }
+
+        // 清除 Cloudflare 配置
+        async function clearCloudflareConfig() {
+            if (confirm('确定要清除 Cloudflare 配置吗？')) {
+                currentConfig.CF = {
+                    Usage: null,
+                    启用: false
+                };
+                
+                try {
+                    await saveConfigToServer('notification');
+                    showToast('Cloudflare 配置已清除', 'success');
+                    updateCloudflareButtonStates(false);
+                } catch (error) {
+                    showToast('清除配置失败: ' + error.message, 'error');
+                }
+            }
+        }
+
         // 打开 TelegramBot 配置模态框
         function openTelegramConfigModal() {
             document.getElementById('telegramConfigModal').classList.add('show');
@@ -5840,6 +5955,14 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                     const result = await response.json();
                     showToast('✅ TelegramBot 配置已保存', 'success');
                     closeTelegramConfigModal();
+
+                    // 更新按钮状态
+                    currentConfig.TG = {
+                        BotToken: token,
+                        ChatID: chatID,
+                        启用: true
+                    };
+                    updateTelegramButtonStates(true);
 
                     // 1秒后刷新页面
                     setTimeout(() => {
