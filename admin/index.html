@@ -4832,8 +4832,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
 
             if (!valueElement || !barsElement) return;
 
-            // 计算平方根均值 (RMS): sqrt(sum(x²)/n)
-            // 先过滤有效的延迟值（排除-1表示失败的情况）
+            // 计算平均延迟：先过滤有效的延迟值（排除-1表示失败的情况）
             const validLatencies = latencies.filter(l => l !== -1);
             let avgLatency = -1;
             
@@ -4843,11 +4842,11 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                     const sorted = [...validLatencies].sort((a, b) => a - b);
                     // 移除最低和最高
                     const trimmedLatencies = sorted.slice(1, sorted.length - 1);
-                    // 对剩余数据计算平方根平均数
-                    avgLatency = Math.sqrt(trimmedLatencies.reduce((a, b) => a + b * b, 0) / trimmedLatencies.length);
+                    // 对剩余数据计算平均值
+                    avgLatency = trimmedLatencies.reduce((a, b) => a + b, 0) / trimmedLatencies.length;
                 } else if (validLatencies.length === 2) {
                     // 如果只有2个有效数据，去掉最高和最低后就没有数据了，使用所有有效数据
-                    avgLatency = Math.sqrt(validLatencies.reduce((a, b) => a + b * b, 0) / validLatencies.length);
+                    avgLatency = validLatencies.reduce((a, b) => a + b, 0) / validLatencies.length;
                 } else {
                     // 如果只有1个或更少有效数据，直接使用
                     avgLatency = validLatencies[0];
