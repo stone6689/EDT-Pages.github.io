@@ -4773,7 +4773,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                             <option value="edge">edge</option>
                             <option value="360">360</option>
                             <option value="qq">qq</option>
-                            <option value="random">random（支持ECH）</option>
+                            <option value="random">random</option>
                             <option value="randomized">randomized</option>
                         </select>
                     </div>
@@ -6995,7 +6995,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
             const fingerprintSelect = document.getElementById('fingerprint');
 
             // 支持ECH的指纹类型
-            const supportECH = ['chrome', 'firefox', 'random'];
+            const supportECH = ['chrome', 'firefox'];
 
             // 如果用户开启ECH，但当前指纹不支持ECH，自动切换到chrome
             if (enableECHCheckbox && enableECHCheckbox.checked) {
@@ -7016,7 +7016,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
             const enableECHCheckbox = document.getElementById('enableECH');
 
             // 支持ECH的指纹类型
-            const supportECH = ['chrome', 'firefox', 'random'];
+            const supportECH = ['chrome', 'firefox'];
 
             if (enableECHCheckbox) {
                 // 当指纹不支持ECH时，自动取消勾选
