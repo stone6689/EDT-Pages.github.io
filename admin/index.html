@@ -2050,8 +2050,6 @@
         .btn-fofa {
             background: linear-gradient(135deg, #439aff 0, #05f2f2 100%);
             color: #fff !important;
-            padding: 10px 16px;
-            font-size: 14px;
             box-shadow: 0 4px 15px rgb(67, 154, 255, 0.3);
             transition: all 0.3s ease;
         }
@@ -2069,8 +2067,6 @@
         .btn-360quake {
             background: linear-gradient(135deg, #00AB7A 0, #00AB7A 100%);
             color: #fff !important;
-            padding: 10px 16px;
-            font-size: 14px;
             box-shadow: 0 4px 15px rgba(0, 171, 122, 0.3);
             transition: all 0.3s ease;
         }
@@ -5022,7 +5018,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                     <div class="module-footer">
                         <button type="button" class="btn btn-proxyip-help" onclick="showProxyIPHelpModal()"
                             title="了解 ProxyIP 的相关信息">
-                            💡 为什么需要反代模式？PROXYIP又是什么？
+                            💡 为什么需要反代？PROXYIP又是什么？
                         </button>
                         <button type="button" class="btn btn-search-proxy" id="getMoreProxyIPBtn"
                             onclick="showGetMoreProxyIPModal()" style="display: none;" title="使用网络测绘引擎寻找可用的PROXYIP">
@@ -5996,23 +5992,14 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
 
             <div class="btn-group"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                <button type="button" class="btn btn-fofa" onclick="openFOFA()"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
-                    FOFA 测绘
-                </button>
-                <button type="button" class="btn btn-360quake" onclick="open360Quake()"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
-                    360 测绘
-                </button>
+                <button type="button" class="btn btn-fofa" onclick="openFOFA()">FOFA 测绘</button>
+                <button type="button" class="btn btn-360quake" onclick="open360Quake()">360 测绘</button>
                 <button type="button" class="btn btn-ech-help"
                     onclick="window.open('https://check.proxyip.cmliussss.net/', '_blank')"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
+                    style="padding: 10px 20px; font-size: 16px; font-weight: 600; white-space: nowrap;">
                     可用性验证
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="closeGetMoreProxyIPModal()"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
-                    关闭
-                </button>
+                <button type="button" class="btn btn-secondary" onclick="closeGetMoreProxyIPModal()">关闭</button>
             </div>
         </div>
     </div>
@@ -6024,7 +6011,8 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                 style="cursor: pointer;">×</button>
             <h2 class="section-title" style="margin-bottom: 15px; text-align: center;">🧩 探索更多 SOCKS5</h2>
             <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">
-                代理资源列表来自 Github、<a href="https://t.me/Enkelte_notif" target="_blank" rel="noopener noreferrer">Notif 💬</a>频道、OTC大佬 等开源社区。<br>
+                代理资源列表来自 Github、<a href="https://t.me/Enkelte_notif" target="_blank" rel="noopener noreferrer">Notif
+                    💬</a>频道、OTC大佬 等开源社区。<br>
             </p>
             <div class="socks5-list-container">
                 <div class="form-group">
@@ -6048,12 +6036,10 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
             </div>
 
             <div class="btn-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px;">
-                <button type="button" class="btn btn-primary" id="socks5ConfirmBtn" onclick="confirmSelectSocks5()"
-                    disabled style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
+                <button type="button" class="btn btn-primary" id="socks5ConfirmBtn" onclick="confirmSelectSocks5()">
                     确定
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="closeExploreSocks5Modal(event)"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
+                <button type="button" class="btn btn-secondary" onclick="closeExploreSocks5Modal(event)">
                     取消
                 </button>
             </div>
@@ -6067,7 +6053,8 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                 style="cursor: pointer;">×</button>
             <h2 class="section-title" style="margin-bottom: 15px; text-align: center;">🧩 探索更多 HTTP</h2>
             <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">
-                代理资源列表来自 Github、<a href="https://t.me/Enkelte_notif" target="_blank" rel="noopener noreferrer">Notif 💬</a>频道、OTC大佬 等开源社区。<br>
+                代理资源列表来自 Github、<a href="https://t.me/Enkelte_notif" target="_blank" rel="noopener noreferrer">Notif
+                    💬</a>频道、OTC大佬 等开源社区。<br>
             </p>
             <div class="http-list-container">
                 <div class="form-group">
@@ -6091,12 +6078,11 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
             </div>
 
             <div class="btn-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px;">
-                <button type="button" class="btn btn-primary" id="httpConfirmBtn" onclick="confirmSelectHTTP()" disabled
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
+                <button type="button" class="btn btn-primary" id="httpConfirmBtn" onclick="confirmSelectHTTP()"
+                    disabled>
                     确定
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="closeExploreHTTPModal(event)"
-                    style="padding: 12px 16px; font-size: 14px; font-weight: 500; white-space: nowrap;">
+                <button type="button" class="btn btn-secondary" onclick="closeExploreHTTPModal(event)">
                     取消
                 </button>
             </div>
