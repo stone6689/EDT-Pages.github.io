@@ -4934,7 +4934,7 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
                 </div>
                 --->
                     <div class="checkbox-row">
-                        <div class="form-group">
+                        <div class="form-group" id="skipVerifyGroup" style="display: none;">
                             <div class="input-wrapper">
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="skipVerify" title="跳过TLS证书验证"
@@ -6795,7 +6795,15 @@ vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tl
             document.getElementById('nodePATH').value = currentConfig.PATH || '';
             document.getElementById('protocol').value = currentConfig.协议类型 || 'vless';
             //document.getElementById('transport').value = currentConfig.传输协议 || 'ws';
-            document.getElementById('skipVerify').checked = currentConfig.跳过证书验证 || false;
+            
+            // 检查跳过证书验证字段是否存在
+            const skipVerifyGroup = document.getElementById('skipVerifyGroup');
+            if (currentConfig['跳过证书验证'] !== undefined) {
+                skipVerifyGroup.style.setProperty('display', 'flex', 'important');
+                document.getElementById('skipVerify').checked = currentConfig['跳过证书验证'] || false;
+            } else {
+                skipVerifyGroup.style.setProperty('display', 'none', 'important');
+            }
 
             // 检查"完整节点路径"字段是否存在，判断PATH是否可编辑
             const nodePathInput = document.getElementById('nodePATH');
